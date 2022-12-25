@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #container {
+            border: 1px solid black;
+            padding: 100px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            margin-top: 100px;
+        }
+
+        input {
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <form action="login_submit" method="post"></form>
+        <div>
+            <label for="mail">Username:</label>
+            <input type="text" name="email" id="mail">
+
+        </div>
+        <br>
+        <div>
+            <label for="pwd">Password:&nbsp;</label>
+            <input type="text" name="password" id="pwd">
+
+        </div>
+        <br>
+        <div>
+            <button type="submit">Login</button>
+        &nbsp;&nbsp;
+            <button type="reset">Reset</button>
+        </div>
+        <br>
+        <div>
+            <button type="fp">Forgot Password</button>
+        </div>
+        </form>
+    </div>
+
+</body>
+
+</html>
