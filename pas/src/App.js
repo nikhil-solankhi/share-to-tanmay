@@ -1,21 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
-import login from "./components/Login";
-import Header from './components/Header';
-import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'
+// import { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Login from './component/Login';
+import AfLogin from './component/AfLogin';
+// import AfLogin from './component/AfLogin';
+// const Logindata = require('./component/Login');
+// import AfLogin from './component/AfLogin';
 
 function App() {
+
   return (
     <div>
-       <Header></Header>
       <Router>
         <Switch>
-          <Route path="/" exact component={login}></Route>
-          <Route path="/view/:empid" component={EmployeeDetails}></Route>
+          <Route path="/" exact component={Login}></Route>
+          <Route path="/display" exact component={AfLogin}></Route>
         </Switch>
       </Router>
     </div>
   );
 }
-
 export default App;
