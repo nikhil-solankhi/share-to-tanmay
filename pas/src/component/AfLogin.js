@@ -1,50 +1,38 @@
-// const empOut=require('./Login');
-import { useEffect,useState } from "react";
-import {useLocation} from 'react-router-dom'
+import { useEffect, useState } from "react";
 import Service from "./service";
-const AfLogin =()=>{
+const AfLogin = () => {
+    var [emparr, setemp] = useState([]);
+    var [flag, setFlag] = useState(false);
+    var id = sessionStorage.getItem("id");
+    useEffect(() => {
+        Service.getEmp(id).then((response) => {
+            setemp(response.data);
+            setFlag(true);
+        })
+            .catch((err) => { console.log("error occured", err) });
 
-var empOut;
-    let [logindata, setlogindata] = useState({ username: "", password: "" });
-    let state=useLocation().state;
-    useEffect(()=>{
-        setlogindata({...state.employee})
-    },[])
-    
-
-    const auth = () => {
-
-            if (logindata.username === "" || logindata.password === "") {
-                alert("Kindly fill username and password");
-            }
-    
-    
-            Service.postLogindata(logindata.username, logindata.password,
-                )
-                .then((result) => {
-                    console.log("user" + result.data);
-                   
-                    console.log(result.data);
-                    empOut = result.data;
-                    console.log("in login js " + empOut);
-                    
-    
-                })
-                .catch(() => { }
-                )
-                // return <h6> {empOut.name} </h6> 
-        }
+    },[flag]);
+    const renderList = () => {
+        return emparr.map((emp) => {
+            return <div> <p> Hi <b>{emp.name}</b>  welcome to Tansflower ESS Portal...! <br></br> <br></br>
+                Employee details: <br></br> <br></br>
+                Name: {emp.name} <br></br>
+                Emp ID: {emp.userid} <br></br>
+                Designation: {emp.designation}<br></br>
+                Contact No : {emp.tel}<br></br>
+            </p>
+            </div>
+        });
 
 
-console.log("in aflogin "+logindata.username);
+    }
+
+
     return (
 
         <div>
-            {auth}
-            <h5>Employee Details of </h5>
-             
-            
-        </div>
+            {renderList()}
+        </div >
 
     )
 }

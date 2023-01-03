@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom'
+import { useState } from "react";
+import Service from './service';
+import {Link} from 'react-router-dom';
+
 
 const Login = () => {
+    var empOut;
     const [logindata, setlogindata] = useState({ username: "", password: "" });
     const handleChange = (event) => {
         console.log("In Handle Change Function");
@@ -9,6 +12,27 @@ const Login = () => {
         setlogindata({ ...logindata, [name]: value })
         console.log("name: " + name + " value: " + value);
     }
+    const auth = (event) => {
+        event.preventDefault();
+        if (logindata.username === "" || logindata.password === "") {
+            alert("Kindly fill username and password");
+        }
+
+
+        Service.postLogindata(logindata.username, logindata.password,
+            )
+            .then((result) => {
+                empOut = result.data;
+                console.log("in login js " + empOut.id);
+                sessionStorage.setItem('id', JSON.stringify(empOut.id));
+            })
+            .catch(() => { 
+                
+            }
+            )
+        }          
+
+
     
     return (
         <div>
@@ -23,11 +47,13 @@ const Login = () => {
                     <br></br>
                     <br></br>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <Link to={{ pathname: `/display`, state: { formdata: logindata } }}>
-                        <button type="button" className="btn btn-success" name='btn' id="view">Login new button</button>
-                    </Link>
+                   
+                        <button  type="button" className="btn btn-success" name='btn' id="view" onClick={auth}>Authenticate</button>
+                    
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="reset" id="btnClr" value="Clear"></input>
+                    <Link to="/AfLogin">
+                    <input type="reset" id="btnClr" value="Login"></input>
+                    </Link>
 
 
                 </form>

@@ -18,7 +18,7 @@ db.connect((err) => {
     console.log('mysql connected');
 });
 
-router.use(function(req, res, next) {
+router.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -85,6 +85,14 @@ router.get('/getallemp', (req, res) => {
         res.send(results);
     });
 });
+router.get('/getemp/:id', (req, res) => {
+    let sql = `SELECT * FROM empdata where userid=${req.params.id}`;
+    let query = db.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send(result);
+    });
+});
 
 // get emp under boss
 router.get('/getallempundermgr/:id', (req, res) => {
@@ -114,19 +122,21 @@ router.get('/authen/:username/:password', (req, res) => {
     console.log(req.params.username);
     let sql = `SELECT * FROM auth where email=${req.params.username}`;
     let query = db.query(sql, (err, result) => {
-        if (err) throw err;
+        if (err) console.log(err);
         var empdata = result[0];
-        var empid = "'"+empdata.userid+"'";
-        console.log(empdata.userid);
+        var databasepassword = JSON.stringify(empdata.password);
 
-        let sql = `SELECT * FROM empdata where userid=${empid}`;
-    let query = db.query(sql, (err, results) => {
-        if (err) throw err;
-        var empdata = results[0];
-        console.log(empdata);
-        res.send(empdata);
-    });
-        
+
+        if (databasepassword == req.params.password) {
+            console.log("in if block");
+            console.log(req.params.username);
+            console.log(req.params.password);
+            console.log(empdata.userid);
+            var idobj = { "id": empdata.userid };
+            res.send(idobj);
+        }
+        console.log(err);
+
     });
 });
 
