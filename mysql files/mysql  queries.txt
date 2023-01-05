@@ -96,7 +96,7 @@ select e.name,e.designation,e.gender,e.tel,l.description,s.statusdesc
 from empdata e inner join applog l on e.userid=l.userid inner join statab s on s.statno=l.status
 where e.mgrid=102;
 
-select e.name,e.designation,e.gender,e.tel,l.description,s.statusdesc,an.award_name
+select e.userid,e.name,e.designation,e.gender,e.tel,l.description,s.statusdesc,an.award_name
 from empdata e 
 inner join applog l on e.userid=l.userid 
 inner join statab s on s.statno=l.status 

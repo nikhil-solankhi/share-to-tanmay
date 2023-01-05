@@ -96,7 +96,7 @@ router.get('/getemp/:id', (req, res) => {
 
 // get emp under boss
 router.get('/getallempundermgr/:id', (req, res) => {
-    let sql = `select e.name,e.designation,e.gender,e.tel,l.description,s.statusdesc,an.award_name
+    let sql = `select e.userid,e.name,e.designation,e.gender,e.tel,l.description,s.statusdesc,an.award_name
                 from empdata e 
                 inner join applog l on e.userid=l.userid 
                 inner join statab s on s.statno=l.status 
